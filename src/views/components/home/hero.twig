@@ -14,7 +14,6 @@
 {% set slides = component.slides ?? [] %}
 {% set autoplay = theme.settings.get('hero_autoplay_ms', 7000) %}
 {% set kenburns = theme.settings.get('hero_kenburns', true) %}
-{% set kicker_default = theme.settings.get('hero_kicker_default') %}
 
 <section
     component-id="{{ componentId }}"
@@ -50,8 +49,8 @@
         <div class="hero__panels">
             {% for slide in slides %}
                 <article class="hero__panel {{ loop.first ? 'is-active' }}" data-panel="{{ loop.index0 }}">
-                    {% if slide.kicker or kicker_default %}
-                        <p class="eyebrow">{{ slide.kicker ?: kicker_default }}</p>
+                    {% if slide.kicker %}
+                        <p class="eyebrow">{{ slide.kicker }}</p>
                     {% endif %}
                     {% if slide.title %}
                         <h1 class="hero__title">{{ slide.title }}</h1>

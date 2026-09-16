@@ -6,7 +6,7 @@
 | store.url         | string  | store url                      |
 | theme.settings    | object  | theme settings                 |
 #}
-{% set wordmark = theme.settings.get('brand_wordmark') ?: store.logo %}
+{% set wordmark = store.logo ? store.logo|cdn(220) : ('images/logo/polar-light.png' | asset) %}
 
 <div class="top {{ theme.settings.get('header_is_sticky', true) ? 'top--sticky' : '' }}" id="top">
     {% if theme.settings.get('show_announcement', true) %}
@@ -24,7 +24,7 @@
     <header data-testid="store-header" class="hdr" id="hdr">
         <div class="wrap hdr__in">
             <a class="hdr__brand" data-testid="store-header-logo" href="{{ store.url }}" aria-label="{{ store.name }}">
-                <img src="{{ wordmark|cdn(220) }}" alt="{{ store.name }}" loading="eager" fetchpriority="high">
+                <img src="{{ wordmark }}" alt="{{ store.name }}" loading="eager" fetchpriority="high">
                 {% if is_page('index') %}<h1 class="sr-only">{{ store.name }}</h1>{% else %}<h2 class="sr-only">{{ store.name }}</h2>{% endif %}
             </a>
 
