@@ -34,7 +34,7 @@
             "type": "static",
             "format": "title",
             "id": "static-brand",
-            "value": "<div class='rounded-lg' style='background-color:#0B0B0D;padding:15px;margin-bottom:20px;text-align:center;'><h6 style='color:#E0C68F;font-size:15px;font-weight:bold;'>إعدادات متقدمة</h6></div>",
+            "value": "<div class='rounded-lg' ><h6 >إعدادات متقدمة</h6></div>",
             "variant": "h6"
         },
         {
