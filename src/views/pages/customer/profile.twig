@@ -1,0 +1,12 @@
+{#
+| page.title | string |
+| user       | object | current user (name, email, mobile, avatar ...)
+#}
+{% extends "layouts.customer" %}
+{% block inner_content %}
+    {% hook 'customer:profile.form.start' %}
+    <div class="cust-card">
+        <salla-user-settings data-testid="store-profile-settings"></salla-user-settings>
+    </div>
+    {% hook 'customer:profile.form.end' %}
+{% endblock %}

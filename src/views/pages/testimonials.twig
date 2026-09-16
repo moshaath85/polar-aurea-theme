@@ -1,0 +1,16 @@
+{#
+| page.title | string |
+#}
+{% extends "layouts.master" %}
+{% block content %}
+<div class="testimonials wrap">
+    <nav class="crumbs"><salla-breadcrumb></salla-breadcrumb></nav>
+    <header class="testimonials__head">
+        <p class="eyebrow">{{ 'آراء عملائنا' | trans }}</p>
+        <h1 class="page__title">{{ page.title }}</h1>
+    </header>
+    {% hook 'testimonials:start' %}
+    <salla-comments data-testid="store-testimonials-comments" testimonials></salla-comments>
+    {% hook 'testimonials:end' %}
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{#
+| Customer layout — wraps all account pages.
+| Use: {% extends "layouts.customer" %} and override {% block inner_content %}
+#}
+{% extends "layouts.master" %}
+
+{% block content %}
+<div class="customer wrap">
+    <nav class="crumbs"><salla-breadcrumb></salla-breadcrumb></nav>
+
+    <div class="customer__grid">
+        <aside class="customer__side">
+            {% if is_page('customer.profile') %}
+                <div class="customer__avatar">
+                    <salla-file-upload data-testid="store-profile-avatar-upload" profile-image value="{{ user.avatar }}">
+                        <span class="customer__avatar-ph"><i class="sicon-user"></i></span>
+                    </salla-file-upload>
+                </div>
+            {% endif %}
+            <salla-user-menu data-testid="store-sidebar-user-menu" inline></salla-user-menu>
+        </aside>
+
+        <section class="customer__main">
+            {% block inner_title %}
+                <h1 class="page__title customer__title">{{ page.title }}</h1>
+            {% endblock %}
+            {% block inner_content %}{% endblock %}
+        </section>
+    </div>
+</div>
+{% endblock %}

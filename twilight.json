@@ -11,22 +11,9 @@
     "author_email": "moshaath85@gmail.com",
     "support_url": "https://github.com/moshaath85/polar-aurea-theme",
     "features": [
-        "mega-menu",
         "fonts",
         "color",
         "breadcrumb",
-        "unite-cards-height",
-        "component-featured-products",
-        "component-fixed-banner",
-        "component-fixed-products",
-        "component-products-slider",
-        "component-photos-slider",
-        "component-parallax-background",
-        "component-testimonials",
-        "component-square-photos",
-        "component-store-features",
-        "component-youtube",
-        "menu-images",
         "filters"
     ],
     "settings": [

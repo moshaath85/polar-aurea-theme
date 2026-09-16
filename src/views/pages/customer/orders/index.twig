@@ -1,0 +1,10 @@
+{#
+| page.title | string     |
+| orders[]   | Collection |
+#}
+{% extends "layouts.customer" %}
+{% block inner_content %}
+    {% hook 'customer:orders.index.items.start' %}
+    <salla-orders data-testid="store-orders-list"></salla-orders>
+    {% hook 'customer:orders.index.items.end' %}
+{% endblock %}

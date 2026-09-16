@@ -1,0 +1,15 @@
+{#
+| reservations | array |
+#}
+{% if reservations is not empty %}
+<ul class="reservations">
+    {% for reservation in reservations %}
+        <li>
+            {{ reservation.day|date|number }}
+            {% if reservation.from_timestamp is not empty %}
+                ({{ reservation.from|number({'PM':'م','AM':'ص'}) }} - {{ reservation.to|number({'PM':'م','AM':'ص'}) }})
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endif %}

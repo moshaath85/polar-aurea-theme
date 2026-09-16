@@ -1,0 +1,17 @@
+{#
+| page.title | string |
+| loyalty    | object | loyalty program data
+#}
+{% extends "layouts.master" %}
+{% block content %}
+<div class="loyalty wrap">
+    <nav class="crumbs"><salla-breadcrumb></salla-breadcrumb></nav>
+    <header class="loyalty__head">
+        <p class="eyebrow">{{ 'برنامج الولاء' | trans }}</p>
+        <h1 class="page__title">{{ page.title }}</h1>
+    </header>
+    {% hook 'loyalty:start' %}
+    <salla-loyalty data-testid="store-loyalty"></salla-loyalty>
+    {% hook 'loyalty:end' %}
+</div>
+{% endblock %}

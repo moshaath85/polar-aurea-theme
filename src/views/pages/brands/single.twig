@@ -1,0 +1,29 @@
+{#
+| brand.name        | string |
+| brand.logo        | string |
+| brand.banner      | ?string|
+| brand.description | string |
+| brand.url         | string |
+#}
+{% extends "layouts.master" %}
+{% block content %}
+<div class="brandpage wrap">
+    {% if brand.banner %}
+        <div class="brandpage__banner"><img src="{{ brand.banner }}" alt="{{ brand.name }}" loading="eager"></div>
+    {% endif %}
+
+    <nav class="crumbs"><salla-breadcrumb></salla-breadcrumb></nav>
+
+    <header class="brandpage__head">
+        {% if brand.logo %}<img class="brandpage__logo" src="{{ brand.logo }}" alt="{{ brand.name }}" loading="lazy">{% endif %}
+        <div>
+            <h1 class="page__title">{{ brand.name }}</h1>
+            {% if brand.description %}<div class="brandpage__desc">{{ brand.description|raw }}</div>{% endif %}
+        </div>
+    </header>
+
+    {% hook 'brands:single.details.start' %}
+    <salla-products-list data-testid="store-brand-products" source="brand" source-value="{{ brand.id }}"></salla-products-list>
+    {% hook 'brands:single.details.end' %}
+</div>
+{% endblock %}

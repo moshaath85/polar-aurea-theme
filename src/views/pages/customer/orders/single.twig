@@ -1,0 +1,16 @@
+{#
+| order          | object | order object
+| order.id       | int    |
+| order.url      | string |
+| order.reference_id | string |
+#}
+{% extends "layouts.customer" %}
+{% block inner_content %}
+    {% hook 'customer:orders.single.details.start' %}
+    <div class="cust-card cust-card--order">
+        <salla-order-details data-testid="store-order-details"></salla-order-details>
+        <salla-order-totals-card></salla-order-totals-card>
+        <salla-order-branch></salla-order-branch>
+    </div>
+    {% hook 'customer:orders.single.details.end' %}
+{% endblock %}

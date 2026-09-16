@@ -648,3 +648,36 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   .brandgroup__grid{grid-template-columns:repeat(2,1fr)}
 }
 
+/* =========================================================
+   CUSTOMER / ACCOUNT · LOYALTY · TESTIMONIALS · BRAND
+   ========================================================= */
+.customer,.loyalty,.testimonials,.brandpage{padding-top:130px;padding-bottom:clamp(60px,8vw,110px)}
+.customer__grid{display:grid;grid-template-columns:280px 1fr;gap:34px;align-items:start}
+.customer__side{position:sticky;top:130px;border:1px solid var(--line-d);padding:20px;background:rgba(250,247,242,.03)}
+.customer__side salla-user-menu a,.customer__side a{display:block;color:rgba(242,236,227,.72);padding:.55rem 0;font-size:.9rem;border-bottom:1px solid rgba(242,236,227,.06)}
+.customer__side a:hover,.customer__side a.is-active{color:var(--gold-2);border-color:var(--gold)}
+.customer__avatar{display:flex;justify-content:center;margin-bottom:18px}
+.customer__avatar-ph{display:grid;place-items:center;width:80px;height:80px;border-radius:50%;border:1px solid var(--line-d);color:var(--muted-2);font-size:1.6rem}
+.customer__title{margin-bottom:1.4rem}
+.cust-card{background:rgba(250,247,242,.04);border:1px solid var(--line-d);padding:clamp(20px,3vw,40px);color:rgba(242,236,227,.85)}
+.cust-card--order{display:flex;flex-direction:column;gap:18px}
+.customer salla-products-list,.customer salla-wallet,.customer salla-notifications,.customer salla-orders,.customer salla-user-settings{display:block;color:inherit}
+
+.loyalty__head,.testimonials__head,.brandpage__head{margin-bottom:32px}
+.brandpage__banner{margin-bottom:24px}
+.brandpage__banner img{width:100%;max-height:300px;object-fit:cover}
+.brandpage__head{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.brandpage__logo{width:120px;max-height:90px;object-fit:contain;background:#fff;padding:12px}
+.brandpage__desc{color:rgba(242,236,227,.7);max-width:60ch}
+
+.reservations{list-style:none;padding:0;margin:0;color:rgba(242,236,227,.7);font-size:.84rem}
+.reservations li{padding:.25rem 0}
+
+@media (max-width:1024px){
+  .customer__grid{grid-template-columns:1fr}
+  .customer__side{position:static}
+}
+@media (max-width:680px){
+  .customer,.loyalty,.testimonials,.brandpage{padding-top:112px}
+}
+
