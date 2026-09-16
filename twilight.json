@@ -148,7 +148,7 @@
     ],
     "components": [
         {
-            "key": "a0e1c6f2-1111-4a10-9b01-a0e1c6f20001",
+            "key": "a0e1c6f2-1111-4a10-9b01-aureahero0001",
             "title": {
                 "en": "Cinematic Hero",
                 "ar": "بنر سينمائي متحرك"
@@ -314,7 +314,7 @@
             ]
         },
         {
-            "key": "a0e1c6f2-2222-4a10-9b02-a0e1c6f20002",
+            "key": "a0e1c6f2-2222-4a10-9b02-aureamq000002",
             "title": {
                 "en": "Scrolling Marquee",
                 "ar": "شريط متحرك"
@@ -334,7 +334,7 @@
             ]
         },
         {
-            "key": "a0e1c6f2-3333-4a10-9b03-a0e1c6f20003",
+            "key": "a0e1c6f2-3333-4a10-9b03-aureacat00003",
             "title": {
                 "en": "Category Tiles",
                 "ar": "بطاقات التصنيفات"
@@ -429,7 +429,7 @@
             ]
         },
         {
-            "key": "a0e1c6f2-4444-4a10-9b04-a0e1c6f20004",
+            "key": "a0e1c6f2-4444-4a10-9b04-aureast00004",
             "title": {
                 "en": "Brand Story",
                 "ar": "قصة العلامة"
@@ -533,7 +533,7 @@
             ]
         },
         {
-            "key": "a0e1c6f2-5555-4a10-9b05-a0e1c6f20005",
+            "key": "a0e1c6f2-5555-4a10-9b05-aureaft00005",
             "title": {
                 "en": "Service Highlights",
                 "ar": "مزايا المتجر"
@@ -589,7 +589,7 @@
             ]
         },
         {
-            "key": "a0e1c6f2-6666-4a10-9b06-a0e1c6f20006",
+            "key": "a0e1c6f2-6666-4a10-9b06-aureatst00006",
             "title": {
                 "en": "Testimonials",
                 "ar": "آراء العملاء"
@@ -657,7 +657,7 @@
             ]
         },
         {
-            "key": "a0e1c6f2-8888-4a10-9b08-a0e1c6f20008",
+            "key": "a0e1c6f2-8888-4a10-9b08-aureatick0008",
             "title": {
                 "en": "Outline Ticker",
                 "ar": "شريط بارز"
@@ -685,7 +685,7 @@
             ]
         },
         {
-            "key": "a0e1c6f2-9999-4a10-9b09-a0e1c6f20009",
+            "key": "a0e1c6f2-9999-4a10-9b09-aurealook0009",
             "title": {
                 "en": "Lookbook",
                 "ar": "لوك بوك (تمرير أفقي)"
@@ -761,7 +761,7 @@
             ]
         },
         {
-            "key": "a0e1c6f2-aaaa-4a10-9b0a-a0e1c6f20010",
+            "key": "a0e1c6f2-aaaa-4a10-9b0a-aureaedit0010",
             "title": {
                 "en": "Editorial Split",
                 "ar": "قسم إديتوريال"
@@ -842,7 +842,7 @@
             ]
         },
         {
-            "key": "a0e1c6f2-7777-4a10-9b07-a0e1c6f20007",
+            "key": "a0e1c6f2-7777-4a10-9b07-aureanews0007",
             "title": {
                 "en": "Newsletter",
                 "ar": "النشرة البريدية"
