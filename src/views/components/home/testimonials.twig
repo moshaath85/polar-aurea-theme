@@ -1,0 +1,24 @@
+{#
+| component.title | ?string  | section title |
+| component.items | object[] | reviews       |
+#}
+{% set items = component.items ?? [] %}
+{% if items|length %}
+<section class="sec" component-id="{{ componentId }}" data-testid="store-home-testimonials">
+    <div class="wrap">
+        <header class="sec__head reveal">
+            <p class="eyebrow">{{ 'آراء عملائنا' | trans }}</p>
+            <h2 class="sec__title">{{ component.title ?? 'قالوا عنّا' }}</h2>
+        </header>
+        <div class="quotes">
+            {% for item in items %}
+                <figure class="quote reveal">
+                    <span class="quote__stars">{% for i in 1..(item.stars ?? 5) %}★{% endfor %}</span>
+                    <blockquote>{{ item.text }}</blockquote>
+                    <figcaption>{{ item.name }}</figcaption>
+                </figure>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

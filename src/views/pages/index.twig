@@ -1,0 +1,15 @@
+{#
+| Variable   | Type   | Description                 |
+|------------|--------|-----------------------------|
+| page.title | string | page title                  |
+| page.slug  | string | ex: "index"                 |
+#}
+{% extends "layouts.master" %}
+
+{% block content %}
+    {% component home %}
+{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ 'home.js' | asset }}"></script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{#
+| Variable      | Type     | Description                     |
+|---------------|----------|---------------------------------|
+| page.title    | string   | blog title                      |
+| articles      | object[] | list of articles                |
+| categories    | object[] | blog categories                 |
+#}
+{% extends "layouts.master" %}
+
+{% block content %}
+<div class="listing wrap">
+    <header class="listing__head">
+        <salla-breadcrumb></salla-breadcrumb>
+        <h1 class="sec__title">{{ page.title }}</h1>
+    </header>
+
+    {% if categories|length %}
+        <nav class="blogcats">
+            {% for category in categories %}
+                <a class="blogcats__item {{ category.is_current ? 'is-active' : '' }}" href="{{ category.url }}">{{ category.name }}</a>
+            {% endfor %}
+        </nav>
+    {% endif %}
+
+    {% if articles|length %}
+        <div class="bloggrid">
+            {% for article in articles %}
+                <a class="blogcard reveal" href="{{ article.url }}">
+                    {% if article.has_image %}
+                        <img src="{{ article.image.url }}" alt="{{ article.image.alt }}" loading="lazy">
+                    {% endif %}
+                    <div class="blogcard__body">
+                        <span class="blogcard__date">{{ article.created_at|date }}</span>
+                        <h2>{{ article.title }}</h2>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <salla-pagination></salla-pagination>
+    {% else %}
+        <p class="listing__empty">{{ 'لا توجد مقالات بعد' | trans }}</p>
+    {% endif %}
+</div>
+{% endblock %}

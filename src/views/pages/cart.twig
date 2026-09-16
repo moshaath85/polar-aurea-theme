@@ -1,0 +1,18 @@
+{#
+| Variable | Type   | Description         |
+|----------|--------|---------------------|
+| cart     | object | cart object         |
+#}
+{% extends "layouts.master" %}
+
+{% block content %}
+<div class="cartpage wrap">
+    <header class="listing__head">
+        <salla-breadcrumb></salla-breadcrumb>
+        <h1 class="sec__title">{{ 'سلة التسوق' | trans }}</h1>
+    </header>
+
+    {# Salla renders the full cart UI (items, coupons, totals, checkout) #}
+    <salla-cart-summary data-testid="store-cart-page" page></salla-cart-summary>
+</div>
+{% endblock %}

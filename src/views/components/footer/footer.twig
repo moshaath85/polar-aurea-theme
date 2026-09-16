@@ -1,0 +1,46 @@
+{#
+| Variable      | Type   | Description        |
+|---------------|--------|--------------------|
+| store.name    | string | store name         |
+| store.logo    | string | logo               |
+| store.contacts| object | mobile/email/...   |
+#}
+{% set wordmark = theme.settings.get('brand_wordmark') ?: store.logo %}
+<footer class="ftr" data-testid="store-footer">
+    <div class="wrap ftr__in">
+        <div class="ftr__brand">
+            <img src="{{ wordmark|cdn(220) }}" alt="{{ store.name }}">
+            <p>{{ store.description|striptags }}</p>
+            <div class="ftr__soc">
+                <salla-social data-testid="store-footer-social"></salla-social>
+            </div>
+        </div>
+
+        <div class="ftr__col">
+            <h4>{{ 'المتجر' | trans }}</h4>
+            <salla-menu data-testid="store-footer-menu" source="footer"></salla-menu>
+        </div>
+
+        <div class="ftr__col">
+            <h4>{{ 'تواصل معنا' | trans }}</h4>
+            <salla-contacts data-testid="store-footer-contacts"></salla-contacts>
+            {% if store.settings.tax.number %}
+                <p class="ftr__doc">{{ trans('common.elements.tax_number') }}<br><span>{{ store.settings.tax.number }}</span></p>
+            {% endif %}
+        </div>
+
+        <div class="ftr__col">
+            <h4>{{ 'تابعنا' | trans }}</h4>
+            <salla-trust-badges data-testid="store-footer-trust-badges" dark></salla-trust-badges>
+        </div>
+    </div>
+
+    <div class="wrap ftr__base">
+        <span>© {{ 'now' | date('Y') }} {{ store.name }} — {{ 'جميع الحقوق محفوظة' | trans }}</span>
+        <span>{{ 'صُنع بإتقان على منصة سلة' | trans }}</span>
+    </div>
+
+    <div class="ftr__pay">
+        <salla-payments data-testid="store-footer-payments"></salla-payments>
+    </div>
+</footer>

@@ -1,0 +1,142 @@
+{#
+| Variable          | Type     | Description                                        |
+|-------------------|----------|----------------------------------------------------|
+| product           | Product  | product object                                     |
+| product.name      | string   |                                                    |
+| product.images[]  | object[] | id, url, alt, video_url                            |
+| product.price     | float    |                                                    |
+| product.options   | object[] | ProductOption collection                           |
+#}
+{% extends "layouts.master" %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ 'product.css' | asset }}">
+{% endblock %}
+
+{% block content %}
+<div class="pdp wrap">
+
+    {% if theme.settings.get('product_show_breadcrumbs', true) %}
+        <nav class="crumbs">
+            <salla-breadcrumb></salla-breadcrumb>
+        </nav>
+    {% endif %}
+
+    <div class="pdp__grid" id="product-{{ product.id }}">
+
+        <div class="pdp__media">
+            <salla-slider
+                data-testid="store-product-image-slider"
+                id="details-slider-{{ product.id }}"
+                class="pdp__slider"
+                data-images='{{ product.images|json_encode }}'
+                type="thumbs"
+                loop="false"
+                auto-height
+                listen-to-thumbnails-option
+                show-thumbs-controls="false">
+                <salla-button class="pdp__wish" type="button" shape="icon" fill="outline"
+                    onclick="salla.wishlist.toggle('{{ product.id }}')" aria-label="{{ 'المفضلة' | trans }}">
+                    <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.3A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.7C19 15.6 12 20 12 20Z"/></svg>
+                </salla-button>
+
+                <div slot="items">
+                    {% for image in product.images %}
+                        <a data-fslightbox="product_{{ product.id }}"
+                           data-img-id="{{ image.id }}"
+                           data-slid-index="{{ loop.index - 1 }}"
+                           class="pdp__slide"
+                           href="{{ (image.video_url is iterable ? image.video_url|first : image.video_url)|default(image.url) }}"
+                           aria-label="{{ product.name }}">
+                            <img src="{{ image.url }}" alt="{{ image.alt }}"
+                                 {% if loop.first %}fetchpriority="high" loading="eager"{% else %}loading="lazy"{% endif %}>
+                        </a>
+                    {% endfor %}
+                </div>
+
+                {% if product.images|length > 1 %}
+                    <div slot="thumbs" class="pdp__thumbs">
+                        {% for image in product.images %}
+                            <div class="pdp__thumb">
+                                <img src="{{ image.url }}" alt="{{ image.alt }}" loading="lazy">
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </salla-slider>
+        </div>
+
+        <div class="pdp__info">
+            <p class="eyebrow">{{ product.category.name ?? store.name }}</p>
+            <h1 class="pdp__title">{{ product.name }}</h1>
+
+            {% if product.subtitle %}<p class="pdp__sub">{{ product.subtitle }}</p>{% endif %}
+
+            <div class="pdp__price" data-testid="store-product-price">
+                {% if product.is_on_sale %}
+                    <span class="pdp__price-now">{{ product.sale_price|money }}</span>
+                    <s class="pdp__price-was">{{ product.regular_price|money }}</s>
+                {% else %}
+                    <span class="pdp__price-now">{{ (product.starting_price ?: product.price)|money }}</span>
+                {% endif %}
+            </div>
+
+            <form data-testid="store-product-form" class="pdp__form" method="post"
+                  enctype="multipart/form-data"
+                  onsubmit="return salla.form.onSubmit('cart.addItem', event)">
+                <input type="hidden" name="id" value="{{ product.id }}">
+
+                {% include 'pages.partials.product.options' %}
+
+                {% if not (product.is_hidden_quantity or product.type == 'booking') %}
+                    <div class="pdp__qty">
+                        <label class="pdp__label">{{ trans('pages.products.quantity') }}</label>
+                        <salla-quantity-input data-testid="store-product-quantity"
+                            max="{{ product.max_quantity }}" value="1" name="quantity"></salla-quantity-input>
+                    </div>
+                {% else %}
+                    <input type="hidden" value="1" name="quantity">
+                {% endif %}
+
+                <salla-add-product-button
+                    data-testid="store-product-add"
+                    class="pdp__add"
+                    product-id="{{ product.id }}"
+                    product-status="{{ product.status }}"
+                    product-type="{{ product.type }}"
+                    amount="{{ product.base_currency_price }}"
+                    form-id="product-{{ product.id }}"
+                    width="wide"
+                    {% if product.notify_availability %}
+                        {{ product.notify_availability.options ? 'notify-options-availability' : '' }}
+                        subscribed-options="{{ product.notify_availability.subscribed_options|json_encode }}"
+                    {% endif %}>
+                </salla-add-product-button>
+            </form>
+
+            <div class="pdp__ship">
+                <span><b>{{ 'توصيل سريع' | trans }}</b> {{ 'خلال ٢-٤ أيام عمل' | trans }}</span>
+                <span><b>{{ 'استبدال' | trans }}</b> {{ 'خلال ١٤ يوم' | trans }}</span>
+            </div>
+
+            {% if product.description %}
+                <details class="pdp__acc" open>
+                    <summary>{{ 'الوصف' | trans }}</summary>
+                    <div class="pdp__acc-body">{{ product.description|raw }}</div>
+                </details>
+            {% endif %}
+        </div>
+    </div>
+
+    <section class="pdp__related">
+        <header class="sec__head"><p class="eyebrow">{{ 'قد يعجبك' | trans }}</p><h2 class="sec__title">{{ 'منتجات مشابهة' | trans }}</h2></header>
+        <salla-products-slider source="related" source-value="{{ product.id }}" slider-id="related-{{ product.id }}" block-title=" "></salla-products-slider>
+    </section>
+
+    {% component 'home.testimonials' %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ 'product.js' | asset }}"></script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{#
+| component.title   | ?string  | heading      |
+| component.kicker  | ?string  | small line   |
+| component.items[] | object[] | look items   |
+#}
+{% set items = component.items ?? [] %}
+{% if items|length %}
+<section class="look" component-id="{{ componentId }}" data-testid="store-home-lookbook">
+    <div class="look__head">
+        <p class="eyebrow">{{ component.kicker ?? 'اللوك بوك' }}</p>
+        <h2 class="sec__title">{{ component.title ?? 'الحياة تبدو أفضل معنا' }}</h2>
+    </div>
+    <div class="look__rail">
+        {% for item in items %}
+            {% set src = item.image starts with 'http' ? item.image : item.image|asset %}
+            <figure class="look__item">
+                <img src="{{ src }}" alt="{{ item.title }}" loading="lazy">
+                <figcaption class="look__cap">
+                    <b>{{ item.title }}</b>
+                    <span>{{ '%02d' | format(loop.index) }}</span>
+                </figcaption>
+            </figure>
+        {% endfor %}
+    </div>
+    <p class="look__hint">{{ 'اسحب أفقيًا للاستكشاف' | trans }} ←</p>
+</section>
+{% endif %}

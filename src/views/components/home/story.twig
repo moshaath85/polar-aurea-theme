@@ -1,0 +1,28 @@
+{#
+| component.kicker | ?string | small line |
+| component.title  | ?string | heading    |
+| component.text   | ?string | body       |
+| component.image  | ?string | image url  |
+| component.points | object[]| bullets    |
+#}
+{% set points = component.points ?? [] %}
+<section class="story" component-id="{{ componentId }}" data-testid="store-home-story">
+    <div class="story__media reveal" data-parallax="0.06">
+        {% if component.image %}
+            <img src="{{ component.image starts with 'http' ? component.image : component.image|asset }}" alt="{{ component.title }}" loading="lazy">
+        {% endif %}
+    </div>
+    <div class="story__body">
+        <p class="eyebrow" style="color:var(--gold-2)">{{ component.kicker ?? 'من نحن' }}</p>
+        <h2 class="story__title reveal">{{ component.title ?? 'إرث سعودي، بروح عصرية' }}</h2>
+        {% if component.text %}<p class="story__text reveal">{{ component.text }}</p>{% endif %}
+        {% if points|length %}
+            <ul class="story__list reveal">
+                {% for p in points %}<li>{{ p.text }}</li>{% endfor %}
+            </ul>
+        {% endif %}
+        {% if component.cta_text %}
+            <a class="btn btn--line reveal" href="{{ component.cta_url ?: '#' }}">{{ component.cta_text }}</a>
+        {% endif %}
+    </div>
+</section>

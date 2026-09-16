@@ -1,0 +1,36 @@
+{#
+| component.title        | ?string   | section title       |
+| component.subtitle     | ?string   | section kicker      |
+| component.products     | Product[] | selected products   |
+| component.limit        | ?int      | max products        |
+| position               | int       | sorting number      |
+#}
+{% set ids = component.products ? component.products|map(p => p.id) : [] %}
+<section class="sec sec--ivory" component-id="{{ componentId }}" data-testid="store-home-featured">
+    <div class="wrap">
+        <header class="sec__head sec__head--row reveal">
+            <div>
+                <p class="eyebrow">{{ component.subtitle ?? 'الأكثر رواجًا' }}</p>
+                <h2 class="sec__title">{{ component.title ?? 'قطع مختارة' }}</h2>
+            </div>
+            {% if component.display_all_url %}
+                <a class="linkmore" href="{{ component.display_all_url }}">{{ 'عرض الكل' | trans }} <span>←</span></a>
+            {% endif %}
+        </header>
+
+        {% if ids|length %}
+            <salla-products-slider
+                source="selected"
+                source-value="[{{ ids|join(',') }}]"
+                slider-id="aurea-products-{{ position }}"
+                block-title=" ">
+            </salla-products-slider>
+        {% else %}
+            <salla-products-slider
+                source="latest"
+                slider-id="aurea-products-{{ position }}"
+                block-title=" ">
+            </salla-products-slider>
+        {% endif %}
+    </div>
+</section>

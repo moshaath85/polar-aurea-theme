@@ -1,0 +1,60 @@
+{#
+| Variable        | Type            | Description                         |
+|-----------------|-----------------|-------------------------------------|
+| product.options | ProductOption[] | product options collection          |
+| option.id       | int             |                                     |
+| option.name     | string          |                                     |
+| option.required | bool            |                                     |
+| option.type     | string          | radio, dropdown, image, color, text |
+| option.values[] | object[]        | id, name, image_url, price          |
+#}
+{% if product.has_options and product.options|length %}
+    <div class="pdp__options">
+        {% for option in product.options %}
+            <div class="pdp__option">
+                <label class="pdp__label" for="option-{{ option.id }}">
+                    {{ option.name }}{% if option.required %}<span class="req">*</span>{% endif %}
+                </label>
+
+                {% if option.type == 'dropdown' or option.type == 'radio' %}
+                    <select id="option-{{ option.id }}" name="options[{{ option.id }}]"
+                            class="pdp__select" data-testid="store-product-option-{{ option.id }}">
+                        <option value="" disabled selected>{{ 'اختر' | trans }}</option>
+                        {% for value in option.values %}
+                            <option value="{{ value.id }}"
+                                {{ (value.is_available is defined and not value.is_available) ? 'disabled' : '' }}>
+                                {{ value.name }}{% if value.price %} · {{ value.price|money }}{% endif %}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                {% elseif option.type == 'image' %}
+                    <div class="pdp__swatches">
+                        {% for value in option.values %}
+                            <label class="swatch swatch--image {{ (value.is_available is defined and not value.is_available) ? 'is-out' : '' }}">
+                                <input type="radio" name="options[{{ option.id }}]" value="{{ value.id }}"
+                                    {{ (value.is_available is defined and not value.is_available) ? 'disabled' : '' }}>
+                                {% if value.image_url %}<img src="{{ value.image_url }}" alt="{{ value.name }}" loading="lazy">{% endif %}
+                                <span>{{ value.name }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+
+                {% elseif option.type == 'color' %}
+                    <div class="pdp__swatches">
+                        {% for value in option.values %}
+                            <label class="swatch swatch--color {{ (value.is_available is defined and not value.is_available) ? 'is-out' : '' }}"
+                                   style="--c:{{ value.name }}" title="{{ value.name }}">
+                                <input type="radio" name="options[{{ option.id }}]" value="{{ value.id }}"
+                                    {{ (value.is_available is defined and not value.is_available) ? 'disabled' : '' }}>
+                            </label>
+                        {% endfor %}
+                    </div>
+
+                {% else %}
+                    <input type="text" id="option-{{ option.id }}" name="options[{{ option.id }}]" class="pdp__input">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

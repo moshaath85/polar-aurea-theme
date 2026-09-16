@@ -1,0 +1,41 @@
+{#
+| Variable        | Type   | Description             |
+|-----------------|--------|-------------------------|
+| thank_you_title | string | success heading         |
+| order           | object | order object            |
+| order.id        | int    |                         |
+| order.url       | string |                         |
+| order.reference_id | string | order number         |
+| order.instructions | ?string | HTML                |
+#}
+{% extends "layouts.master" %}
+
+{% block content %}
+{% hook 'thank-you:start' %}
+<div class="thanks wrap">
+    <nav class="crumbs"><salla-breadcrumb></salla-breadcrumb></nav>
+    <div class="thanks__card">
+        <span class="thanks__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+        </span>
+        <h1 class="thanks__title" data-testid="store-thankyou-title">{{ thank_you_title }}</h1>
+        <p class="thanks__meta">
+            {{ trans('pages.thank_you.order_id') }}
+            <salla-button class="thanks__id" shape="link" color="dark"
+                data-testid="store-thankyou-order-id"
+                onclick="app.copyToClipboard(event)"
+                data-content="{{ order.reference_id }}">
+                <span>#{{ order.reference_id }}</span>
+            </salla-button>
+        </p>
+        <salla-button data-testid="store-thankyou-order-details-btn"
+            onclick="salla.order.show({order_id:'{{ order.id }}', url:'{{ order.url }}'})">
+            {{ trans('pages.thank_you.order_details') }}
+        </salla-button>
+
+        {% if order.instructions %}
+            <div class="thanks__note">{{ order.instructions|raw }}</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

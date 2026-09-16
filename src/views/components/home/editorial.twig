@@ -1,0 +1,26 @@
+{#
+| component.kicker  | ?string  | small line   |
+| component.title   | ?string  | heading      |
+| component.text    | ?string  | body         |
+| component.image   | ?string  | image url    |
+| component.stats[] | object[] | value/label  |
+#}
+{% set stats = component.stats ?? [] %}
+<section class="editorial" component-id="{{ componentId }}" data-testid="store-home-editorial">
+    <div class="editorial__media" data-clip="right">
+        {% if component.image %}
+            {% set src = component.image starts with 'http' ? component.image : component.image|asset %}
+            <img src="{{ src }}" alt="{{ component.title }}" loading="lazy">
+        {% endif %}
+    </div>
+    <div class="editorial__body">
+        <p class="eyebrow reveal">{{ component.kicker ?? 'لماذا نحن' }}</p>
+        <h2 class="reveal">{{ component.title ?? 'تفاصيل تصنع الفرق' }}</h2>
+        {% if component.text %}<p class="reveal">{{ component.text }}</p>{% endif %}
+        {% if stats|length %}
+            <div class="editorial__stats reveal">
+                {% for s in stats %}<div><b>{{ s.value }}</b><i>{{ s.label }}</i></div>{% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>

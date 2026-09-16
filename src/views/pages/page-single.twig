@@ -1,0 +1,24 @@
+{#
+| Variable      | Type   | Description        |
+|---------------|--------|--------------------|
+| page.type     | string | customised / normal|
+| page.title    | string |                    |
+| page.content  | string | HTML               |
+| page.id       | int    |                    |
+#}
+{% extends "layouts.master" %}
+
+{% block content %}
+{% if page.type == 'customised' %}
+    <div class="s-blocks-wrapper s-information-page">{% hook 'information_page.information_page' %}</div>
+{% else %}
+    <div class="page wrap">
+        <nav class="crumbs"><salla-breadcrumb></salla-breadcrumb></nav>
+        <article class="page__card">
+            <h1 class="page__title">{{ page.title }}</h1>
+            <div class="page__body">{{ page.content|raw }}</div>
+            <salla-comments data-testid="store-page-comments" item-id="{{ page.id }}" type="page"></salla-comments>
+        </article>
+    </div>
+{% endif %}
+{% endblock %}

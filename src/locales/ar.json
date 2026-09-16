@@ -1,0 +1,21 @@
+{
+  "aurea.hero.slide": "عرض الصور",
+  "aurea.hero.scroll": "اسحب للأسفل",
+  "aurea.nav.main": "القائمة الرئيسية",
+  "aurea.nav.menu": "القائمة",
+  "aurea.search": "بحث",
+  "aurea.cart": "سلة التسوق",
+  "aurea.footer.store": "المتجر",
+  "aurea.footer.contact": "تواصل معنا",
+  "aurea.footer.follow": "تابعنا",
+  "aurea.copyright": "جميع الحقوق محفوظة",
+  "aurea.made_on_salla": "صُنع بإتقان على منصة سلة",
+  "aurea.sale": "عرض الكل",
+  "aurea.quantity": "الكمية",
+  "aurea.favorite": "المفضلة",
+  "aurea.shipping": "توصيل سريع",
+  "aurea.exchange": "استبدال",
+  "aurea.description": "الوصف",
+  "aurea.related": "قد يعجبك",
+  "aurea.related.title": "منتجات مشابهة"
+}

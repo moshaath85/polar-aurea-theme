@@ -1,0 +1,11 @@
+{#
+| component.text    | ?string | main words   |
+| component.accent  | ?string | italic accent |
+#}
+<div class="ticker" component-id="{{ componentId }}" data-testid="store-home-ticker" aria-hidden="true">
+    <div class="ticker__track">
+        {% for i in 1..2 %}
+            <span>{{ component.text ?? 'WEAR YOUR' }} <b>{{ component.accent ?? 'STORY' }}</b> · {{ store.name }} · </span>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,16 @@
+{#
+| component.title | ?string | heading |
+| component.note  | ?string | small note |
+#}
+<section class="news" component-id="{{ componentId }}" data-testid="store-home-newsletter">
+    <span class="news__glow" aria-hidden="true"></span>
+    <div class="wrap news__in">
+        <p class="eyebrow">{{ 'انضم للعائلة' | trans }}</p>
+        <h2 class="news__title">{{ component.title ?? 'كن أول من يعرف عن الإصدارات المحدودة' }}</h2>
+        <form class="news__form" action="{{ store.url }}/newsletter" method="post">
+            <input type="email" name="email" placeholder="{{ 'بريدك الإلكتروني' | trans }}" aria-label="{{ 'البريد الإلكتروني' | trans }}" required>
+            <button class="btn btn--gold" type="submit">{{ 'اشترك' | trans }}</button>
+        </form>
+        {% if component.note %}<p class="news__note">{{ component.note }}</p>{% endif %}
+    </div>
+</section>

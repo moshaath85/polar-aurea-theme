@@ -1,0 +1,84 @@
+{#
+| Variable                   | Type     | Description                                  |
+|----------------------------|----------|----------------------------------------------|
+| component.slides           | object[] | list of slides                               |
+| component.slides[].image    | string   | image url                                    |
+| component.slides[].kicker   | ?string  | small line above the title                   |
+| component.slides[].title    | ?string  | main title                                   |
+| component.slides[].subtitle | ?string  | supporting paragraph                         |
+| component.slides[].cta_text | ?string  | button label                                 |
+| component.slides[].cta_url  | ?string  | button url                                   |
+| component.slides[].variant  | ?string  | "full" (default) or "object"                 |
+| position                   | int      | sorting number                               |
+#}
+{% set slides = component.slides ?? [] %}
+{% set autoplay = theme.settings.get('hero_autoplay_ms', 7000) %}
+{% set kenburns = theme.settings.get('hero_kenburns', true) %}
+{% set kicker_default = theme.settings.get('hero_kicker_default') %}
+
+<section
+    component-id="{{ componentId }}"
+    data-testid="store-home-hero"
+    class="hero {{ kenburns ? 'hero--motion' : '' }}"
+    data-autoplay="{{ autoplay }}"
+    aria-label="{{ component.title ?? 'Hero' }}">
+
+    <div class="hero__slides" id="heroSlides">
+        {% for slide in slides %}
+            {% set src = slide.image starts with 'http' or slide.image starts with '//' ? slide.image : slide.image|asset %}
+            <div class="hero__slide hero__slide--{{ slide.variant ?? 'full' }} {{ loop.first ? 'is-active' }}" data-index="{{ loop.index0 }}">
+                {% if slide.video %}
+                    <video autoplay muted loop playsinline poster="{{ src }}">
+                        <source src="{{ slide.video }}" type="video/mp4">
+                    </video>
+                {% else %}
+                    <img
+                        src="{{ src }}"
+                        alt="{{ slide.title ?? store.name }}"
+                        {% if loop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
+                        width="1920" height="1080">
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    {% if slides|length > 1 %}<span class="hero__progress" aria-hidden="true"><i></i></span>{% endif %}
+
+    <span class="hero__glow" aria-hidden="true"></span>
+    <span class="hero__scrim" aria-hidden="true"></span>
+
+    <div class="hero__content">
+        <div class="hero__panels">
+            {% for slide in slides %}
+                <article class="hero__panel {{ loop.first ? 'is-active' }}" data-panel="{{ loop.index0 }}">
+                    {% if slide.kicker or kicker_default %}
+                        <p class="eyebrow">{{ slide.kicker ?: kicker_default }}</p>
+                    {% endif %}
+                    {% if slide.title %}
+                        <h1 class="hero__title">{{ slide.title }}</h1>
+                    {% endif %}
+                    {% if slide.subtitle %}
+                        <p class="hero__sub">{{ slide.subtitle }}</p>
+                    {% endif %}
+                    {% if slide.cta_text %}
+                        <div class="hero__cta">
+                            <a class="btn btn--gold" href="{{ slide.cta_url ?: '#' }}">{{ slide.cta_text }}</a>
+                        </div>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if slides|length > 1 %}
+        <div class="hero__bars" id="heroBars" role="tablist" aria-label="{{ 'عرض الصور' | trans }}">
+            {% for slide in slides %}
+                <button type="button" class="hero__bar {{ loop.first ? 'is-active' }}" role="tab" data-goto="{{ loop.index0 }}" aria-label="{{ loop.index }}"><i></i></button>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="hero__foot" aria-hidden="true">
+        <span class="hero__scroll"><i></i>{{ 'اسحب للأسفل' | trans }}</span>
+        <span class="hero__loc">{{ store.address ?? '' }}</span>
+    </div>
+</section>

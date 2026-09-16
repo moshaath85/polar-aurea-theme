@@ -1,0 +1,51 @@
+{#
+| Variable          | Type    | Description                    |
+|-------------------|---------|--------------------------------|
+| store.name        | string  | store name                     |
+| store.logo        | string  | store logo url                 |
+| store.url         | string  | store url                      |
+| theme.settings    | object  | theme settings                 |
+#}
+{% set wordmark = theme.settings.get('brand_wordmark') ?: store.logo %}
+
+<div class="top {{ theme.settings.get('header_is_sticky', true) ? 'top--sticky' : '' }}" id="top">
+    {% if theme.settings.get('show_announcement', true) %}
+        <div class="announce" id="announcement">
+            <div class="announce__track">
+                {% for i in 1..3 %}
+                    <span>{{ store.slogan ?: store.description ?: store.name }}</span><b>◆</b>
+                    <span>{{ 'شحن مجاني للطلبات فوق ٢٥٠ ر.س' | trans }}</span><b>◆</b>
+                    <span>{{ 'الاستبدال خلال ١٤ يوم' | trans }}</span><b>◆</b>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <header data-testid="store-header" class="hdr" id="hdr">
+        <div class="wrap hdr__in">
+            <a class="hdr__brand" data-testid="store-header-logo" href="{{ store.url }}" aria-label="{{ store.name }}">
+                <img src="{{ wordmark|cdn(220) }}" alt="{{ store.name }}" loading="eager" fetchpriority="high">
+                {% if is_page('index') %}<h1 class="sr-only">{{ store.name }}</h1>{% else %}<h2 class="sr-only">{{ store.name }}</h2>{% endif %}
+            </a>
+
+            <nav class="nav" aria-label="{{ 'القائمة الرئيسية' | trans }}">
+                <salla-menu data-testid="store-header-menu" source="main"></salla-menu>
+            </nav>
+
+            <div class="hdr__act">
+                <button class="icon" type="button" aria-label="{{ 'بحث' | trans }}" onclick="salla.event.dispatch('search::open')">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                </button>
+                <salla-user-menu data-testid="store-header-user" avatar-only show-trigger></salla-user-menu>
+                <salla-cart-summary data-testid="store-header-cart" class="icon icon--cart">
+                    <svg slot="icon" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>
+                </salla-cart-summary>
+                <a class="burger" href="#mobile-menu" aria-label="{{ 'القائمة' | trans }}" data-testid="store-header-mobile-toggle">
+                    <i></i><i></i>
+                </a>
+            </div>
+        </div>
+    </header>
+</div>
+
+<salla-search data-testid="store-header-search" inline oval height="40" class="sr-only"></salla-search>

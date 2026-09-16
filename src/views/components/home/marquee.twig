@@ -1,0 +1,9 @@
+{#
+| component.text | ?string | marquee text |
+#}
+{% set text = component.text ?? 'أوريا · تصاميم محدودة · قطن ثقيل ·' %}
+<div class="marquee" component-id="{{ componentId }}" data-testid="store-home-marquee" aria-hidden="true">
+    <div class="marquee__track">
+        {% for i in 1..4 %}<span>{{ text }} <i>◆</i></span>{% endfor %}
+    </div>
+</div>

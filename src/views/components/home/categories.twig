@@ -1,0 +1,27 @@
+{#
+| component.title      | ?string  | section title  |
+| component.tiles[]    | object[] | tiles          |
+#}
+{% set tiles = component.tiles ?? [] %}
+{% if tiles|length %}
+<section class="sec" component-id="{{ componentId }}" data-testid="store-home-tiles">
+    <div class="wrap">
+        <header class="sec__head reveal">
+            <p class="eyebrow">{{ 'التصنيفات' | trans }}</p>
+            <h2 class="sec__title">{{ component.title ?? 'اختر أسلوبك' }}</h2>
+        </header>
+        <div class="tiles">
+            {% for tile in tiles %}
+                <a class="tile {{ loop.first ? 'tile--tall' : '' }} reveal" href="{{ tile.url ?: '#' }}">
+                    {% if tile.image %}<img src="{{ tile.image starts with 'http' ? tile.image : tile.image|asset }}" alt="{{ tile.title }}" loading="lazy">{% endif %}
+                    <span class="tile__veil"></span>
+                    <span class="tile__meta">
+                        <b>{{ tile.title }}</b>
+                        {% if tile.subtitle %}<i>{{ tile.subtitle }}</i>{% endif %}
+                    </span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

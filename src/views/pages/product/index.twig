@@ -1,0 +1,52 @@
+{#
+| Variable       | Type       | Description                    |
+|----------------|------------|--------------------------------|
+| page.title     | string     | category title                 |
+| page.slug      | string     | source slug                    |
+| page.id        | int        | source id                      |
+| filters        | bool       | filters allowed                |
+| sort_options[] | SortList[] | sort options                   |
+#}
+{% extends "layouts.master" %}
+
+{% block content %}
+<div class="listing wrap">
+    <header class="listing__head">
+        <salla-breadcrumb></salla-breadcrumb>
+        <h1 class="sec__title">{{ page.title }}</h1>
+    </header>
+
+    <div class="listing__body">
+        {% if filters %}
+            <button class="listing__filterbtn" type="button" data-testid="store-products-filters-mobile-trigger" onclick="document.getElementById('filters-menu').classList.toggle('is-open')">
+                {{ trans('pages.categories.filters') ?? 'التصفية' }}
+            </button>
+            <salla-filters data-testid="store-products-filters" class="listing__filters" id="filters-menu"></salla-filters>
+        {% endif %}
+
+        <div class="listing__main">
+            {% if sort_options|length %}
+                <div class="listing__sort">
+                    <label for="product-filter">{{ trans('pages.categories.sorting') }}</label>
+                    <select id="product-filter" name="sort" onchange="salla.event.dispatch('products::sort', {value: this.value})">
+                        {% for sort in sort_options %}
+                            <option value="{{ sort.id }}" {{ sort.is_selected ? 'selected' : '' }}>{{ sort.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+
+            <salla-products-list
+                data-testid="store-products-list"
+                source="{{ page.slug }}"
+                source-value="{{ page.id }}"
+                {{ filters ? 'filters-Results' : '' }}>
+            </salla-products-list>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ 'product.js' | asset }}"></script>
+{% endblock %}

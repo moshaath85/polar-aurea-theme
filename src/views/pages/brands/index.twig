@@ -1,0 +1,32 @@
+{#
+| Variable   | Type     | Description                    |
+|------------|----------|--------------------------------|
+| page.title | string   | page title                     |
+| brands     | object   | grouped by first letter        |
+#}
+{% extends "layouts.master" %}
+
+{% block content %}
+<div class="listing wrap">
+    <header class="listing__head">
+        <salla-breadcrumb></salla-breadcrumb>
+        <h1 class="sec__title">{{ page.title }}</h1>
+    </header>
+
+    {% if brands|length %}
+        {% for char, group in brands %}
+            <section class="brandgroup">
+                <h2 class="brandgroup__char">{{ char }}</h2>
+                <div class="brandgroup__grid">
+                    {% for brand in group %}
+                        <a class="brandcard reveal" href="{{ brand.url }}">
+                            {% if brand.logo %}<img src="{{ brand.logo }}" alt="{{ brand.name }}" loading="lazy">{% endif %}
+                            <span>{{ brand.name }}</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

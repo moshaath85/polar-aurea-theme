@@ -1,0 +1,873 @@
+{
+    "name": {
+        "ar": "أوريا",
+        "en": "Aurea"
+    },
+    "repository": "https://github.com/moshaath85/polar-aurea-theme",
+    "author_email": "moshaath85@gmail.com",
+    "features": [
+        "mega-menu",
+        "fonts",
+        "breadcrumb",
+        "filters",
+        "component-featured-products",
+        "component-fixed-products",
+        "component-products-slider",
+        "component-photos-slider",
+        "component-square-photos",
+        "component-store-features",
+        "component-testimonials"
+    ],
+    "settings": [
+        {
+            "type": "static",
+            "format": "title",
+            "id": "static-hero",
+            "value": "<div class='rounded-lg' style='background-color:#0B0B0D;padding:15px;margin-bottom:20px;'><h6 style='color:#E0C68F;font-size:15px;font-weight:bold;'>إعدادات الهوية</h6></div>",
+            "variant": "h6"
+        },
+        {
+            "type": "string",
+            "id": "brand_wordmark",
+            "format": "image",
+            "icon": "sicon-image",
+            "label": "شعار المتجر (فاتح)",
+            "description": "يُستخدم في الهيدر والفوتر على الخلفيات الداكنة. الأفضل PNG بخلفية شفافة.",
+            "value": null
+        },
+        {
+            "type": "string",
+            "id": "hero_kicker_default",
+            "label": "النص التمهيدي للبنر (اختياري)",
+            "format": "text",
+            "multilanguage": true,
+            "value": "سعودي ستريت وير"
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "id": "hero_kenburns",
+            "label": "تفعيل حركة تقريب الصور في البنر (Ken Burns)",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        },
+        {
+            "id": "hero_autoplay_ms",
+            "type": "items",
+            "format": "dropdown-list",
+            "icon": "sicon-list",
+            "label": "مدة عرض كل صورة في البنر",
+            "source": "Manual",
+            "required": true,
+            "selected": [
+                {
+                    "label": "٥ ثوانٍ",
+                    "value": 5000,
+                    "key": "a1"
+                },
+                {
+                    "label": "٧ ثوانٍ",
+                    "value": 7000,
+                    "key": "a2"
+                },
+                {
+                    "label": "٩ ثوانٍ",
+                    "value": 9000,
+                    "key": "a3"
+                }
+            ],
+            "options": [
+                {
+                    "label": "٥ ثوانٍ",
+                    "value": 5000,
+                    "key": "a1"
+                },
+                {
+                    "label": "٧ ثوانٍ",
+                    "value": 7000,
+                    "key": "a2"
+                },
+                {
+                    "label": "٩ ثوانٍ",
+                    "value": 9000,
+                    "key": "a3"
+                }
+            ]
+        },
+        {
+            "type": "static",
+            "format": "line",
+            "id": "static-line1"
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "id": "header_is_sticky",
+            "label": "تثبيت الهيدر أعلى الصفحة",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "id": "show_announcement",
+            "label": "إظهار شريط الإعلانات المتحرك",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "id": "product_sticky_bar",
+            "label": "تثبيت زر الإضافة أسفل شاشة الجوال",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "id": "product_show_breadcrumbs",
+            "label": "إظهار مسار التنقل في صفحة المنتج",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        },
+        {
+            "type": "boolean",
+            "icon": "sicon-toggle-off",
+            "id": "enable_add_product_toast",
+            "label": "إشعار الإضافة للسلة",
+            "format": "switch",
+            "value": true,
+            "selected": true
+        }
+    ],
+    "components": [
+        {
+            "key": "a0e1c6f2-1111-4a10-9b01-aureahero0001",
+            "title": {
+                "en": "Cinematic Hero",
+                "ar": "بنر سينمائي متحرك"
+            },
+            "icon": "sicon-image-carousel",
+            "path": "home.hero",
+            "image": "https://cdn.salla.network/images/themes/raed/preview-images/images-slider-enhancement.png",
+            "is_default": true,
+            "fields": [
+                {
+                    "type": "static",
+                    "format": "description",
+                    "id": "hero-desc",
+                    "value": "<div><b>بنر سينمائي:</b> صور بملء الشاشة تتبدّل بتلاشٍ ناعم مع حركة تقريب بطيئة (Ken Burns)، وأشرطة تقدم قابلة للنقر. المقاس المثالي 1920×2400 للصور الرأسية أو 1920×1080 للأفقية.</div>"
+                },
+                {
+                    "id": "slides",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "صور البنر",
+                    "item_label": "صورة",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 6,
+                    "value": [
+                        {
+                            "slides.image": "images/hero-heritage.webp",
+                            "slides.kicker": "أوريا · سعودي ستريت وير",
+                            "slides.title": "هوية تُلبَس",
+                            "slides.subtitle": "قطن ثقيل مغسول، طباعة يدوية، وإصدارات محدودة — صُنعت بأيدي سعودية لتعيش معك.",
+                            "slides.cta_text": "تسوّق الآن",
+                            "slides.variant": "full"
+                        },
+                        {
+                            "slides.image": "images/products/cut-money.webp",
+                            "slides.kicker": "الإصدار الجديد",
+                            "slides.title": "MONEY TALKS",
+                            "slides.subtitle": "طبعة فنية على قطن ثقيل ٢٤٠ جرام — إصدار محدود ومرقّم.",
+                            "slides.cta_text": "اكتشف الإصدار",
+                            "slides.variant": "object"
+                        },
+                        {
+                            "slides.image": "images/products/cut-march.webp",
+                            "slides.kicker": "الأكثر مبيعًا",
+                            "slides.title": "POLAR MARCH",
+                            "slides.subtitle": "غسيل حجري فاخر يمنح كل قطعة ملمسًا فريدًا لا يتكرّر.",
+                            "slides.cta_text": "تسوّق المجموعة",
+                            "slides.variant": "object"
+                        },
+                        {
+                            "slides.image": "images/products/cut-who.webp",
+                            "slides.kicker": "ACID WASH",
+                            "slides.title": "WHO CARES",
+                            "slides.subtitle": "تصميم جسور لمن لا ينتظر الإذن — إصدار محدود.",
+                            "slides.cta_text": "اقتنِ الآن",
+                            "slides.variant": "object"
+                        }
+                    ],
+                    "fields": [
+                        {
+                            "id": "slides.image",
+                            "type": "string",
+                            "format": "image",
+                            "label": "الصورة",
+                            "required": true,
+                            "description": "المقاس المثالي 1920×2400 (رأسي) أو 1920×1080 (أفقي)."
+                        },
+                        {
+                            "id": "slides.kicker",
+                            "type": "string",
+                            "format": "text",
+                            "label": "سطر تمهيدي (اختياري)",
+                            "multilanguage": true,
+                            "maxLength": 60
+                        },
+                        {
+                            "id": "slides.title",
+                            "type": "string",
+                            "format": "text",
+                            "label": "العنوان الرئيسي",
+                            "multilanguage": true,
+                            "maxLength": 80
+                        },
+                        {
+                            "id": "slides.subtitle",
+                            "type": "string",
+                            "format": "textarea",
+                            "label": "نص توضيحي",
+                            "multilanguage": true,
+                            "maxLength": 220
+                        },
+                        {
+                            "id": "slides.cta_text",
+                            "type": "string",
+                            "format": "text",
+                            "label": "نص الزر",
+                            "multilanguage": true,
+                            "maxLength": 30
+                        },
+                        {
+                            "id": "slides.cta_url",
+                            "type": "items",
+                            "format": "variable-list",
+                            "label": "رابط الزر",
+                            "searchable": true,
+                            "source": "custom",
+                            "sources": [
+                                {
+                                    "label": "منتج",
+                                    "key": "products",
+                                    "value": "products"
+                                },
+                                {
+                                    "label": "تصنيف",
+                                    "key": "categories",
+                                    "value": "categories"
+                                },
+                                {
+                                    "label": "صفحة",
+                                    "key": "pages",
+                                    "value": "pages"
+                                },
+                                {
+                                    "label": "التخفيضات",
+                                    "key": "offers_link",
+                                    "value": "offers_link"
+                                },
+                                {
+                                    "label": "رابط خارجي",
+                                    "key": "custom",
+                                    "value": "custom"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "slides.variant",
+                            "type": "items",
+                            "format": "dropdown-list",
+                            "label": "نمط الشريحة",
+                            "source": "Manual",
+                            "selected": [
+                                {
+                                    "label": "صورة كاملة",
+                                    "value": "full",
+                                    "key": "v1"
+                                }
+                            ],
+                            "options": [
+                                {
+                                    "label": "صورة كاملة",
+                                    "value": "full",
+                                    "key": "v1"
+                                },
+                                {
+                                    "label": "خلفية داكنة + صورة منتج",
+                                    "value": "object",
+                                    "key": "v2"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "a0e1c6f2-2222-4a10-9b02-aureamq000002",
+            "title": {
+                "en": "Scrolling Marquee",
+                "ar": "شريط متحرك"
+            },
+            "icon": "sicon-list-play",
+            "path": "home.marquee",
+            "is_default": true,
+            "fields": [
+                {
+                    "id": "text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "النص المتحرك",
+                    "multilanguage": true,
+                    "value": "أوريا · تصاميم محدودة · قطن ثقيل ·"
+                }
+            ]
+        },
+        {
+            "key": "a0e1c6f2-3333-4a10-9b03-aureacat00003",
+            "title": {
+                "en": "Category Tiles",
+                "ar": "بطاقات التصنيفات"
+            },
+            "icon": "sicon-layout-grid-rearrange",
+            "path": "home.categories",
+            "is_default": true,
+            "fields": [
+                {
+                    "id": "title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "عنوان القسم",
+                    "multilanguage": true,
+                    "value": "اختر أسلوبك"
+                },
+                {
+                    "id": "tiles",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "البطاقات",
+                    "item_label": "بطاقة",
+                    "required": true,
+                    "minLength": 2,
+                    "maxLength": 4,
+                    "value": [
+                        {
+                            "tiles.image": "images/products/product-who.webp",
+                            "tiles.title": "Acid Wash",
+                            "tiles.subtitle": "غسيل حجري فاخر"
+                        },
+                        {
+                            "tiles.image": "images/products/product-money.webp",
+                            "tiles.title": "Graphic Tees",
+                            "tiles.subtitle": "طباعة فنية"
+                        },
+                        {
+                            "tiles.image": "images/products/product-drake.webp",
+                            "tiles.title": "New Drop",
+                            "tiles.subtitle": "الإصدار الجديد"
+                        }
+                    ],
+                    "fields": [
+                        {
+                            "id": "tiles.image",
+                            "type": "string",
+                            "format": "image",
+                            "label": "الصورة",
+                            "required": true
+                        },
+                        {
+                            "id": "tiles.title",
+                            "type": "string",
+                            "format": "text",
+                            "label": "الاسم",
+                            "multilanguage": true
+                        },
+                        {
+                            "id": "tiles.subtitle",
+                            "type": "string",
+                            "format": "text",
+                            "label": "وصف مختصر",
+                            "multilanguage": true
+                        },
+                        {
+                            "id": "tiles.url",
+                            "type": "items",
+                            "format": "variable-list",
+                            "label": "الرابط",
+                            "searchable": true,
+                            "source": "custom",
+                            "sources": [
+                                {
+                                    "label": "تصنيف",
+                                    "key": "categories",
+                                    "value": "categories"
+                                },
+                                {
+                                    "label": "منتج",
+                                    "key": "products",
+                                    "value": "products"
+                                },
+                                {
+                                    "label": "رابط خارجي",
+                                    "key": "custom",
+                                    "value": "custom"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "a0e1c6f2-4444-4a10-9b04-aureast00004",
+            "title": {
+                "en": "Brand Story",
+                "ar": "قصة العلامة"
+            },
+            "icon": "sicon-store2",
+            "path": "home.story",
+            "is_default": true,
+            "fields": [
+                {
+                    "id": "kicker",
+                    "type": "string",
+                    "format": "text",
+                    "label": "سطر تمهيدي",
+                    "multilanguage": true,
+                    "value": "من نحن"
+                },
+                {
+                    "id": "title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان",
+                    "multilanguage": true,
+                    "value": "إرث سعودي، بروح عصرية"
+                },
+                {
+                    "id": "text",
+                    "type": "string",
+                    "format": "textarea",
+                    "label": "النص",
+                    "multilanguage": true,
+                    "value": "وُلدت العلامة من الرياض، لتخلط أصالة المكان بروح الشارع. نصنع قطعًا محدودة من القطن الثقيل المغسول، بطباعة عناية، لتروي قصة من يلبسها."
+                },
+                {
+                    "id": "image",
+                    "type": "string",
+                    "format": "image",
+                    "label": "الصورة",
+                    "value": "images/hero-heritage.webp"
+                },
+                {
+                    "id": "points",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "النقاط",
+                    "item_label": "نقطة",
+                    "maxLength": 6,
+                    "value": [
+                        {
+                            "points.text": "قطن ثقيل ٢٤٠ جرام"
+                        },
+                        {
+                            "points.text": "غسيل حجري يدوي"
+                        },
+                        {
+                            "points.text": "إصدار محدود ومرقّم"
+                        }
+                    ],
+                    "fields": [
+                        {
+                            "id": "points.text",
+                            "type": "string",
+                            "format": "text",
+                            "label": "النص",
+                            "multilanguage": true
+                        }
+                    ]
+                },
+                {
+                    "id": "cta_text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "نص الزر",
+                    "multilanguage": true,
+                    "value": "اكتشف القصة"
+                },
+                {
+                    "id": "cta_url",
+                    "type": "items",
+                    "format": "variable-list",
+                    "label": "رابط الزر",
+                    "searchable": true,
+                    "source": "custom",
+                    "sources": [
+                        {
+                            "label": "صفحة",
+                            "key": "pages",
+                            "value": "pages"
+                        },
+                        {
+                            "label": "تصنيف",
+                            "key": "categories",
+                            "value": "categories"
+                        },
+                        {
+                            "label": "رابط خارجي",
+                            "key": "custom",
+                            "value": "custom"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "a0e1c6f2-5555-4a10-9b05-aureaft00005",
+            "title": {
+                "en": "Service Highlights",
+                "ar": "مزايا المتجر"
+            },
+            "icon": "sicon-award-ribbon",
+            "path": "home.features",
+            "is_default": true,
+            "fields": [
+                {
+                    "id": "items",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "المزايا",
+                    "item_label": "ميزة",
+                    "required": true,
+                    "minLength": 1,
+                    "maxLength": 4,
+                    "value": [
+                        {
+                            "items.title": "توصيل سريع",
+                            "items.text": "استلم طلبك في وقت قياسي داخل المملكة."
+                        },
+                        {
+                            "items.title": "دفع آمن",
+                            "items.text": "تجربة شراء محمية بخصوصية كاملة."
+                        },
+                        {
+                            "items.title": "استبدال سهل",
+                            "items.text": "خلال ١٤ يومًا وبلا تعقيد."
+                        },
+                        {
+                            "items.title": "دعم فوري",
+                            "items.text": "فريقنا معك عبر واتساب في أي وقت."
+                        }
+                    ],
+                    "fields": [
+                        {
+                            "id": "items.title",
+                            "type": "string",
+                            "format": "text",
+                            "label": "العنوان",
+                            "multilanguage": true
+                        },
+                        {
+                            "id": "items.text",
+                            "type": "string",
+                            "format": "text",
+                            "label": "الوصف",
+                            "multilanguage": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "a0e1c6f2-6666-4a10-9b06-aureatst00006",
+            "title": {
+                "en": "Testimonials",
+                "ar": "آراء العملاء"
+            },
+            "icon": "sicon-chat-bubbles",
+            "path": "home.testimonials",
+            "is_default": true,
+            "fields": [
+                {
+                    "id": "title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان",
+                    "multilanguage": true,
+                    "value": "قالوا عنّا"
+                },
+                {
+                    "id": "items",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "الآراء",
+                    "item_label": "رأي",
+                    "minLength": 1,
+                    "maxLength": 6,
+                    "value": [
+                        {
+                            "items.text": "جودة القماش غير طبيعية، والطبعة واضحة. صارت قطعتي المفضلة.",
+                            "items.name": "عبدالله — الرياض",
+                            "items.stars": 5
+                        },
+                        {
+                            "items.text": "التغليف فخم والتوصيل سريع. تجربة تشبه الماركات العالمية.",
+                            "items.name": "نورة — جدة",
+                            "items.stars": 5
+                        },
+                        {
+                            "items.text": "تصاميم مختلفة عن الموجود. أحس إني ألبس هوية مو مجرد تيشيرت.",
+                            "items.name": "فيصل — الدمام",
+                            "items.stars": 5
+                        }
+                    ],
+                    "fields": [
+                        {
+                            "id": "items.text",
+                            "type": "string",
+                            "format": "textarea",
+                            "label": "النص",
+                            "multilanguage": true
+                        },
+                        {
+                            "id": "items.name",
+                            "type": "string",
+                            "format": "text",
+                            "label": "الاسم"
+                        },
+                        {
+                            "id": "items.stars",
+                            "type": "number",
+                            "format": "integer",
+                            "label": "النجوم",
+                            "value": 5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "a0e1c6f2-8888-4a10-9b08-aureatick0008",
+            "title": {
+                "en": "Outline Ticker",
+                "ar": "شريط بارز"
+            },
+            "icon": "sicon-list-play",
+            "path": "home.ticker",
+            "is_default": true,
+            "fields": [
+                {
+                    "id": "text",
+                    "type": "string",
+                    "format": "text",
+                    "label": "النص",
+                    "multilanguage": true,
+                    "value": "WEAR YOUR"
+                },
+                {
+                    "id": "accent",
+                    "type": "string",
+                    "format": "text",
+                    "label": "الكلمة المميزة",
+                    "multilanguage": true,
+                    "value": "STORY"
+                }
+            ]
+        },
+        {
+            "key": "a0e1c6f2-9999-4a10-9b09-aurealook0009",
+            "title": {
+                "en": "Lookbook",
+                "ar": "لوك بوك (تمرير أفقي)"
+            },
+            "icon": "sicon-image-carousel",
+            "path": "home.lookbook",
+            "is_default": true,
+            "fields": [
+                {
+                    "id": "kicker",
+                    "type": "string",
+                    "format": "text",
+                    "label": "سطر تمهيدي",
+                    "multilanguage": true,
+                    "value": "اللوك بوك"
+                },
+                {
+                    "id": "title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان",
+                    "multilanguage": true,
+                    "value": "الحياة تبدو أفضل معنا"
+                },
+                {
+                    "id": "items",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "الصور",
+                    "item_label": "صورة",
+                    "required": true,
+                    "minLength": 2,
+                    "maxLength": 10,
+                    "value": [
+                        {
+                            "items.image": "images/hero-heritage.webp",
+                            "items.title": "الدرعية"
+                        },
+                        {
+                            "items.image": "images/products/product-money.webp",
+                            "items.title": "Money Talks"
+                        },
+                        {
+                            "items.image": "images/products/product-march.webp",
+                            "items.title": "Polar March"
+                        },
+                        {
+                            "items.image": "images/products/product-who.webp",
+                            "items.title": "Who Cares"
+                        },
+                        {
+                            "items.image": "images/products/product-drake.webp",
+                            "items.title": "Drake Vintage"
+                        }
+                    ],
+                    "fields": [
+                        {
+                            "id": "items.image",
+                            "type": "string",
+                            "format": "image",
+                            "label": "الصورة",
+                            "required": true
+                        },
+                        {
+                            "id": "items.title",
+                            "type": "string",
+                            "format": "text",
+                            "label": "العنوان",
+                            "multilanguage": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "a0e1c6f2-aaaa-4a10-9b0a-aureaedit0010",
+            "title": {
+                "en": "Editorial Split",
+                "ar": "قسم إديتوريال"
+            },
+            "icon": "sicon-layout-grid-rearrange",
+            "path": "home.editorial",
+            "is_default": true,
+            "fields": [
+                {
+                    "id": "kicker",
+                    "type": "string",
+                    "format": "text",
+                    "label": "سطر تمهيدي",
+                    "multilanguage": true,
+                    "value": "لماذا نحن"
+                },
+                {
+                    "id": "title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان",
+                    "multilanguage": true,
+                    "value": "تفاصيل تصنع الفرق"
+                },
+                {
+                    "id": "text",
+                    "type": "string",
+                    "format": "textarea",
+                    "label": "النص",
+                    "multilanguage": true,
+                    "value": "كل قطعة تمرّ بمراحل عناية: اختيار القطن، الغسيل الحجري، الطباعة، ثم الفحص اليدوي."
+                },
+                {
+                    "id": "image",
+                    "type": "string",
+                    "format": "image",
+                    "label": "الصورة",
+                    "value": "images/hero-heritage.webp"
+                },
+                {
+                    "id": "stats",
+                    "type": "collection",
+                    "format": "collection",
+                    "label": "الأرقام",
+                    "item_label": "رقم",
+                    "maxLength": 4,
+                    "value": [
+                        {
+                            "stats.value": "٢٤٠",
+                            "stats.label": "جرام قطن"
+                        },
+                        {
+                            "stats.value": "١٠٠٪",
+                            "stats.label": "صناعة سعودية"
+                        },
+                        {
+                            "stats.value": "١٤",
+                            "stats.label": "يوم استبدال"
+                        }
+                    ],
+                    "fields": [
+                        {
+                            "id": "stats.value",
+                            "type": "string",
+                            "format": "text",
+                            "label": "القيمة",
+                            "multilanguage": true
+                        },
+                        {
+                            "id": "stats.label",
+                            "type": "string",
+                            "format": "text",
+                            "label": "الوصف",
+                            "multilanguage": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "a0e1c6f2-7777-4a10-9b07-aureanews0007",
+            "title": {
+                "en": "Newsletter",
+                "ar": "النشرة البريدية"
+            },
+            "icon": "sicon-envelope",
+            "path": "home.newsletter",
+            "is_default": true,
+            "fields": [
+                {
+                    "id": "title",
+                    "type": "string",
+                    "format": "text",
+                    "label": "العنوان",
+                    "multilanguage": true,
+                    "value": "كن أول من يعرف عن الإصدارات المحدودة"
+                },
+                {
+                    "id": "note",
+                    "type": "string",
+                    "format": "text",
+                    "label": "ملاحظة صغيرة",
+                    "multilanguage": true,
+                    "value": "خصم ١٠٪ على أول طلب"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{#
+| Variable            | Type    | Description                    |
+|---------------------|---------|--------------------------------|
+| article.title       | string  |                                |
+| article.created_at  | date    |                                |
+| article.author      | object  | name, url                      |
+| article.has_image   | bool    |                                |
+| article.image       | object  | url, alt                       |
+| article.content     | string  | HTML                           |
+| article.key         | string  |                                |
+#}
+{% extends "layouts.master" %}
+
+{% block content %}
+<article class="article wrap">
+    <nav class="crumbs"><salla-breadcrumb></salla-breadcrumb></nav>
+    <header class="article__head">
+        <h1 class="article__title">{{ article.title }}</h1>
+        <div class="article__meta">
+            <span>{{ article.created_at|date }}</span>
+            <a href="{{ article.author.url }}">{{ article.author.name }}</a>
+        </div>
+    </header>
+
+    {% if article.has_image %}
+        <img class="article__hero" src="{{ article.image.url }}" alt="{{ article.image.alt }}" loading="eager">
+    {% endif %}
+
+    <div class="article__body">{{ article.content|raw }}</div>
+
+    <salla-comments data-testid="store-blog-comments" item-id="{{ article.key }}" type="blog"></salla-comments>
+</article>
+{% endblock %}
